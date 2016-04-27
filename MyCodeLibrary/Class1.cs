@@ -1,12 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyCodeLibrary
 {
-    public class Class1
+    public class Scrape
     {
+        public string ScrapeWebpage(string url)
+        {
+            return GetWebPage(url);
+        }
+
+        public string ScrapeWebpage(string url, string filepath)
+        {
+            string reply = GetWebPage(url);
+
+            File.WriteAllText(filepath, reply);
+            return reply;
+        }
+
+        private string GetWebPage(string url)
+        {
+            WebClient client = new WebClient();
+            string webPage = client.DownloadString(url);
+            return webPage;
+        }
     }
 }
